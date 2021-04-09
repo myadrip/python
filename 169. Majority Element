@@ -6,3 +6,21 @@ class Solution(object):
         
         return nums[len(nums)//2]
 =================================================
+class Solution(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        temp = dict()
+        
+        for i in nums:
+            if i in temp:
+                temp[i] +=1
+            else:
+                temp[i] = 1
+                
+            if temp[i] > len(nums)//2:
+                return i
+        return 0
+=================================================
