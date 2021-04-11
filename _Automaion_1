@@ -13,12 +13,35 @@ elem = driver.find_element_by_name('q')
 elem.send_keys('조코딩')
 elem.send_keys(Keys.RETURN)
 
-elements = driver.find_elements_by_css_selector('.rg_i.Q4LuWd')
-index = 0
-for elem in elements:
-    elem.click()
-    time.sleep(3)
-    image_url = driver.find_element_by_css_selector('.n3VNCb').get_attribute('src')
-    urllib.request.urlretrieve(image_url, str(index)+'.jpg')
-    index += 1
+SCROLL_PAUSE_TIME = 1
+PAGE_LOADING = 3
+last_height = driver.execute_script('return document.body.scrollHeight')
+
+while True:
+    driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+    time.sleep(SCROLL_PAUSE_TIME)
+    new_height = driver.execute_script('return document.body.scrollHeight')
+    if new_height == last_height:
+        try:
+            driver.find_element_by_css_selector('.mye4qd').click()
+        except:
+            break
+        new_height = driver.execute_script('return document.body.scrollHeight')
+    last_height = new_height
+
+
+try:
+    elements = driver.find_elements_by_css_selector('.rg_i.Q4LuWd')
+    index = 0
+    for elem in elements:
+        elem.click()
+        time.sleep(PAGE_LOADING)
+        image_url = driver.find_element_by_css_selector('.n3VNCb').get_attribute('src')
+        urllib.request.urlretrieve(image_url, str(index)+'.jpg')
+        index += 1
+except Exception as e:
+    print(e)
+finally:
+    driver.close()
+
     
