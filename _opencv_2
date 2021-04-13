@@ -1,0 +1,29 @@
+import cv2
+
+# cap = cv2.VideoCapture(0)   # Class for video capturing from video files, image sequences or cameras
+cap = cv2.VideoCapture('output.avi')   # Class for video capturing from video files, image sequences or cameras
+frame_width = int(cap.get(3))   # capture size
+frame_height = int(cap.get(4))  # capture size
+
+fourcc = cv2.VideoWriter_fourcc(*'XVID')    # video codec
+# writer = cv2.VideoWriter('output.avi', fourcc, 30.0, (frame_width, frame_height)) # 1280 720
+
+while 1:
+    ret, img_color = cap.read()
+    
+    if ret == False:        # when capture is failed
+        continue
+    
+    img_gray = cv2.cvtColor(img_color, cv2.COLOR_BGR2GRAY)
+
+    cv2.imshow('Color', img_color)
+    cv2.imshow('Gray', img_gray)
+
+    # writer.write(img_color)
+
+    if cv2.waitKey(1) == 27:    #waitKey( 키 입력 대기 시간 ms),  함수의 리턴 값은 키보드로 입력한 키값이다.
+        break
+
+cap.release()
+# writer.release()
+cv2.destroyAllWindows()     # return all resources
