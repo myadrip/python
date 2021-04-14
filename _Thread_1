@@ -1,0 +1,17 @@
+import threading
+import time
+
+def execute(number):    
+    while True:
+        print('sub Thread')
+        print(threading.current_thread().getName, number)        
+        time.sleep(2)
+
+if __name__ == '__main__':
+    my_thread = threading.Thread(target=execute, args=(0,))
+    my_thread.start()
+
+    while True:
+        print('main Thread')
+        time.sleep(2)
+
