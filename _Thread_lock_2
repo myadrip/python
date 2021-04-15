@@ -10,7 +10,7 @@ def add_total(amount):
         tot += amount
     finally:
         lock.release()
-    print(threading.current_thread().getName() + ' Not Synchronized:', tot)
+    print(threading.current_thread().getName() + ' Synchronized:', tot)
 
 if __name__ == '__main__':
     for i in range(10000):
